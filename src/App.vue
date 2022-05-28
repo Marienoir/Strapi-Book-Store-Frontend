@@ -1,7 +1,6 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <h1>Strapi Book App</h1>
   </nav>
   <router-view />
 </template>
@@ -12,11 +11,20 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
-
+body {
+  background-color: #d3dfea;
+  color: #fff;
+}
+h1 {
+  color: #2c3e50;
+  text-align: left;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 25px;
+}
 nav {
-  padding: 30px;
+  padding: 5px;
 }
 
 nav a {
