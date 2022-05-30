@@ -1,7 +1,9 @@
 <template>
-  <nav>
-    <h1>Strapi Book App</h1>
-  </nav>
+  <div id="app">
+    <nav>
+      <h1>Strapi Book App</h1>
+    </nav>
+  </div>
   <router-view />
 </template>
 
@@ -11,6 +13,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  width: 80vw;
+  margin: auto;
 }
 body {
   background-color: #d3dfea;

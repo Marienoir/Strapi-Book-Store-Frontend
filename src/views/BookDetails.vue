@@ -1,65 +1,70 @@
 <template>
   <div class="books">
     <div class="card">
-      <img
-        v-if="book.attributes.Image"
-        :src="`http://localhost:1337${book.attributes.Image.data.attributes.url}`"
-      />
-      <img v-else :src="Image" />
       <div class="card-desc">
-        <h3 class="title">{{ selectedBooks }}</h3>
-        <!-- <p class="descrxxtedBooks.attributes.publishedAt  }}</h4> -->
+        <img :src="`http://localhost:1337${image}`" />
+        <div>
+          <h3>{{ bookById.Name }}</h3>
+          <h5>By: {{ bookById.Author }}</h5>
+          <h5>Published at: {{ bookById.publishedAt }}</h5>
+        </div>
+        <p>{{ bookById.Description }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-
+import axios from "axios";
 export default {
-  name: "Book-Details",
+  name: "BookDetails",
   data() {
     return {
-      image: "http://localhost:1337/uploads/2_2_5e6d9e80c1.png",
+      image: [],
+      bookById: [],
     };
   },
-  // mounted() {
-  //   this.getAllBooks();
-  // },
-  methods: {
-    ...mapActions(["getBookById"]),
-  },
-  computed: {
-    ...mapGetters(["getBookId"]),
-    selectedBooks() {
-      const id = this.$route.params.id;
-      const selectedBooks = this.getBookId(id);
-      console.log(this.getBookId);
-      return selectedBooks;
-    },
+  async mounted() {
+    const id = this.$route.params.id;
+    await axios
+      .get(`http://localhost:1337/api/books/${id}?populate=*`)
+      .then((response) => {
+        this.bookById = response.data.data.attributes;
+        this.image = this.bookById.Image.data.attributes.url;
+      });
   },
 };
 </script>
 <style scoped>
 .card {
   max-width: 80vw;
-  margin: 50px auto;
-  background: rgb(233, 233, 240);
-  padding: 30px;
-  flex-direction: row;
+  margin: auto;
+}
+.card-title {
+  display: flex;
+  justify-content: space-around;
 }
 img {
-  width: 100%;
-  height: 200px;
-  margin-bottom: 20px;
+  width: 20vw;
+  height: 20vw;
 }
 h3 {
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 20px;
+  color: #000;
 }
-h4 {
+h5 {
   font-size: 15px;
+  font-style: italic;
+  color: #716c69;
+  margin: 5px !important;
+}
+p {
+  font-size: 19px;
+  color: #000;
+  width: 50vw;
+  padding-top: 20px;
+  margin: auto;
+  text-align: justify;
 }
 button {
   padding: 15px;
